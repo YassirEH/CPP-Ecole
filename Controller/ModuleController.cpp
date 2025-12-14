@@ -5,25 +5,10 @@
 
 using namespace std;
 
-Module::Module() : id(0), nom(""), professeur_id(0), date(), nombre_etudiants(0) {}
+Module::Module() : id(0), nom(""), professeur(), date(), nombre_etudiants(0) {}
 
-Module::Module(int id, string nom, int professeur_id, Date date, int nombre_etudiants, vector<Etudiant> etudiants)
-    : id(id), nom(nom), professeur_id(professeur_id), date(date), nombre_etudiants(nombre_etudiants), etudiants(etudiants) {}
-
-void Module::afficher() const {
-    cout << "ID: " << id << endl;
-    cout << "Nom: " << nom << endl;
-    cout << "Professeur Id: " << professeur_id << endl;
-    cout << "Date: ";
-    date.afficher();
-    cout << "Nombre d'etudiants: " << nombre_etudiants << endl;
-    cout << "IDs des etudiants: ";
-    for(int i = 0; i < etudiants.size(); i++) {
-        cout << etudiants[i].getId();
-        if(i < etudiants.size() - 1) cout << ", ";
-    }
-    cout << endl;
-}
+Module::Module(int id, string nom, Professeur professeur, Date date, int nombre_etudiants, vector<Etudiant> etudiants)
+    : id(id), nom(nom), professeur(professeur), date(date), nombre_etudiants(nombre_etudiants), etudiants(etudiants) {}
 
 void Module::saisir() {
     cout << "Entrez l'Id: ";
@@ -31,12 +16,11 @@ void Module::saisir() {
     cin.ignore();
     cout << "Entrez le nom: ";
     getline(cin, nom);
-    cout << "Entrez l'Id du professeur: ";
-    cin >> professeur_id;
     cout << "Entrez la date:" << endl;
     date.saisir();
     cout << "Entrez le nombre d'etudiants: ";
     cin >> nombre_etudiants;
+    cout << "Entrez l'Id du professeur: ";
 }
 
 bool Module::estEtudiantInscrit(Etudiant etudiant) const {
@@ -93,3 +77,20 @@ void Module::supprimerEtudiant(const Etudiant& etudiant) {
     cout << "Erreur: L'etudiant ne fait pas partie du module." << endl;
 }
 
+void Module::afficher() const {
+    cout << "ID: " << id << endl;
+    cout << "Nom: " << nom << endl;
+    cout << "Date lancement module: ";
+    date.afficher();
+    cout << "Nombre d'etudiants: " << nombre_etudiants << endl << endl;
+    cout << "les Etudiants: ";
+    for(int i = 0; i < etudiants.size(); i++) {
+        etudiants[i].afficher();
+        if(i<etudiants.size()){
+            cout<< endl;
+        }
+    }
+    cout<<"Professeur du module " << nom << ":" << endl;
+    this->getProfesseur();
+    cout << endl;
+}

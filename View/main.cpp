@@ -9,22 +9,24 @@
 using namespace std;
 
 int main() {
-    // Test afficherEtudiantPlus20Ans
+    // Test afficher method
     
-    // Create some test students with different ages
+    // Create some test students
     Etudiant e1(1, "Alice", "Dupont", "123 Rue Paris", 19);
     Etudiant e2(2, "Bob", "Martin", "456 Rue Lyon", 21);
     Etudiant e3(3, "Charlie", "Durand", "789 Rue Nice", 22);
-    Etudiant e4(4, "Diana", "Leblanc", "321 Rue Lille", 20);
+    
+    // Create a professor
+    Professeur prof(101, "Moreau", "Paul", "10 Rue Sorbonne", "Mathematiques", 2020);
     
     // Create a module with these students
-    vector<Etudiant> etudiants = {e1, e2, e3, e4};
-    Date moduleDate(1, 9, 2024, 8);  // Date needs 4 arguments: jour, mois, annee, heure
-    Module module(1, "Mathematiques", 101, moduleDate, 4, etudiants);
+    vector<Etudiant> etudiants = {e1, e2, e3};
+    Date moduleDate(1, 9, 2024, 8);
+    Module module(1, "Mathematiques", prof, moduleDate, 3, etudiants);
     
-    cout << "Test de afficherEtudiantPlus20Ans:" << endl;
+    cout << "Test de Module::afficher():" << endl;
     cout << "======================================" << endl;
-    module.afficherEtudiantPlus20Ans();
+    module.afficher();
 
     return 0;
 }
