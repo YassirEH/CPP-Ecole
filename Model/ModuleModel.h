@@ -33,10 +33,15 @@ public:
     bool estEtudiantInscrit(const Etudiant etudiant) const;
     void ajouterEtudiant(const Etudiant etudiant);
     void modifierNomModule();
-    void afficherEtudiantPlus20Ans();
+    void afficherEtudiantPlus20Ans() const;
     void supprimerEtudiant(const Etudiant& etudiant);
     void afficher() const;
-
+    void modifierProfesseur(Professeur& nouveau_prof);
 };
-
+int chercherModule(const vector<Module>& modules, const Module& module_a_rechercher);
+void ajouterModule(vector<Module>& modules, const Module& new_module);
+void modifierModule(vector<Module>& modules, const Module& updated_module);
+void supprimerModule(vector<Module>& modules, const Module& module_to_delete);
+void afficherToutModules(vector<Module>& modules);
+void retirerEtudiant(vector<Module>& modules, Etudiant etudiant);
 #endif
