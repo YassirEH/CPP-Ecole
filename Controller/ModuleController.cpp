@@ -179,3 +179,37 @@ void retirerEtudiant(vector<Module>& modules, const Module& module, const Etudia
     }
     modules[id].supprimerEtudiant(etudiant);
 }
+
+void afficherModulesPlus10Ans(vector<Module>& modules) {
+    cout << "Entrez la date de reference pour la comparaison:" << endl;
+    Date date;
+    date.saisir();
+    
+    bool trouve = false;
+    
+    cout << "\n========== MODULES DE PLUS DE 10 ANS ==========" << endl;
+    
+    for (int i = 0; i < modules.size(); i++) {
+        Date date_lancement = modules[i].getDate();
+        
+        // Calculer la différence en années
+        int diff_annees = date.annee - date_lancement.annee;
+        
+        // Ajuster si le mois/jour n'est pas encore passé
+        if (date.mois < date_lancement.mois || 
+            (date.mois == date_lancement.mois && date.jour < date_lancement.jour)) {
+            diff_annees--;
+        }
+        
+        if (diff_annees > 10) {
+            modules[i].afficher();
+            cout << "Anciennete: " << diff_annees << " ans" << endl;
+            cout << "---------------------------------------" << endl;
+            trouve = true;
+        }
+    }
+    
+    if (!trouve) {
+        cout << "Aucun module de plus de 10 ans trouve." << endl;
+    }
+}

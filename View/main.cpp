@@ -29,14 +29,14 @@ int main() {
     int choix;
     
     // Créer quelques données de test
-    Etudiant e1(1, "Alice", "Dupont", "123 Rue Paris", 19);
-    Etudiant e2(2, "Bob", "Martin", "456 Rue Lyon", 21);
-    Etudiant e3(3, "Charlie", "Durand", "789 Rue Nice", 22);
-    Etudiant e4(4, "David", "Bernard", "321 Rue Nice", 25);
+    Etudiant e1(1, "Amina", "Alami", "123 Bd Mohammed V, Casablanca", 19);
+    Etudiant e2(2, "Omar", "Bennani", "456 Av Hassan II, Rabat", 21);
+    Etudiant e3(3, "Karim", "Idrissi", "789 Rue Fes, Marrakech", 22);
+    Etudiant e4(4, "Hassan", "Tazi", "321 Bd Zerktouni, Casablanca", 25);
     
-    Professeur prof1(101, "Moreau", "Paul", "10 Rue Sorbonne", "Mathematiques", 2020);
-    Professeur prof2(102, "Dubois", "Marie", "20 Rue Lyon", "Physique", 2015);
-    Professeur prof3(103, "Lambert", "Jean", "30 Rue Paris", "Informatique", 2010);
+    Professeur prof1(101, "El Fassi", "Mohamed", "Rabat", "Mathematiques", 2020);
+    Professeur prof2(102, "Berrada", "Fatima", " Fes", "Physique", 2015);
+    Professeur prof3(103, "Amrani", "Youssef", "Casablanca", "Informatique", 2010);
     
     // Créer quelques modules de test
     vector<Etudiant> etudiants1 = {e1, e2};
@@ -193,7 +193,7 @@ int main() {
             
             case 6: { // Afficher modules de plus de 10 ans
                 cout << "\n";
-                // afficherModulesPlus10Ans(modules);
+                afficherModulesPlus10Ans(modules);
                 break;
             }
             

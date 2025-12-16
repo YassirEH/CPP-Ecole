@@ -44,4 +44,5 @@ void modifierModule(vector<Module>& modules, const Module& updated_module);
 void supprimerModule(vector<Module>& modules, const Module& module_to_delete);
 void afficherToutModules(vector<Module>& modules);
 void retirerEtudiant(vector<Module>& modules, const Module& module, const Etudiant& etudiant);
+void afficherModulesPlus10Ans(vector<Module>& modules);
 #endif
