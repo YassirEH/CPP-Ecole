@@ -53,15 +53,19 @@ void Module::modifierNomModule(){
 
 void Module::afficherEtudiantPlus20Ans() const {
     vector<Etudiant> etudiantsPlus20Ans;
-    for (int i = 0; i<nombre_etudiants; i++){
+    for (int i = 0; i < etudiants.size(); i++){
         if(etudiants[i].getAge() > 20){
             etudiantsPlus20Ans.push_back(etudiants[i]);
         }
     }
 
     cout<<"Les etudiants age de plus que 20 ans sont:"<<endl;
-    for(int i = 0; i < etudiantsPlus20Ans.size(); i++){
-        etudiantsPlus20Ans[i].afficher();
+    if(etudiantsPlus20Ans.empty()) {
+        cout << "Aucun etudiant de plus de 20 ans." << endl;
+    } else {
+        for(int i = 0; i < etudiantsPlus20Ans.size(); i++){
+            etudiantsPlus20Ans[i].afficher();
+        }
     }
     
 }

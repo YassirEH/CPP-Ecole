@@ -43,5 +43,5 @@ void ajouterModule(vector<Module>& modules, const Module& new_module);
 void modifierModule(vector<Module>& modules, const Module& updated_module);
 void supprimerModule(vector<Module>& modules, const Module& module_to_delete);
 void afficherToutModules(vector<Module>& modules);
-void retirerEtudiant(vector<Module>& modules, Etudiant etudiant);
+void retirerEtudiant(vector<Module>& modules, const Module& module, const Etudiant& etudiant);
 #endif
