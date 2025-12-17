@@ -16,11 +16,25 @@ void Module::saisir() {
     cin.ignore();
     cout << "Entrez le nom: ";
     getline(cin, nom);
-    cout << "Entrez la date:" << endl;
+    
+    cout << "Informations du professeur:" << endl;
+    professeur.saisir();
+    
+    cout << "Date de lancement:" << endl;
     date.saisir();
+    
     cout << "Entrez le nombre d'etudiants: ";
     cin >> nombre_etudiants;
-    cout << "Entrez l'Id du professeur: ";
+    cin.ignore();
+    
+    etudiants.clear();
+    for(int i = 0; i < nombre_etudiants; i++) {
+        cout << "\nEtudiant " << (i+1) << ":" << endl;
+        Etudiant etud;
+        etud.saisir();
+        etudiants.push_back(etud);
+    }
+    cout << "Etudiant ajoute avec success";
 }
 
 bool Module::estEtudiantInscrit(Etudiant etudiant) const {
@@ -99,9 +113,9 @@ void Module::afficher() const {
     cout << endl;
 }
 
-int chercherModule(const vector<Module>& modules, const Module& module_a_rechercher) {
+int chercherModule(const vector<Module>& modules, int id) {
     for (int i = 0; i < modules.size(); i++) {
-        if (modules[i].getId() == module_a_rechercher.getId()) {
+        if (modules[i].getId() == id) {
             return i;
         }
     }
@@ -109,7 +123,7 @@ int chercherModule(const vector<Module>& modules, const Module& module_a_recherc
 }
 
 void ajouterModule(vector<Module>& modules, const Module& new_module){
-    if(chercherModule(modules, new_module) != -1){
+    if(chercherModule(modules, new_module.getId()) != -1){
         cout << "Erreur: Un module avec cet id existe deja" << endl;
         return;
     }
@@ -120,10 +134,10 @@ void Module::modifierProfesseur(Professeur& nouveau_prof){
     this->professeur = nouveau_prof;
 }
 
-void modifierModule(vector<Module>& modules, const Module& updated_module){
-    int id = chercherModule(modules, updated_module);
+void modifierModule(vector<Module>& modules, int id){
+    int index = chercherModule(modules, id);
     
-    if (id == -1) {
+    if (index == -1) {
         cout << "Erreur: Module non trouve." << endl;
         return;
     }
@@ -141,7 +155,7 @@ void modifierModule(vector<Module>& modules, const Module& updated_module){
         cout << "Entrez le nouveau nom du module: ";
         string nouveau_nom;
         getline(cin, nouveau_nom);
-        modules[id].modifierNomModule();
+        modules[index].modifierNomModule();
         cout << "Nom du module modifie avec succes." << endl;
     }
     
@@ -149,12 +163,12 @@ void modifierModule(vector<Module>& modules, const Module& updated_module){
         cout << "Entrez les informations du nouveau professeur:" << endl;
         Professeur nouveau_prof;
         nouveau_prof.saisir();
-        modules[id].modifierProfesseur(nouveau_prof);
+        modules[index].modifierProfesseur(nouveau_prof);
     }
 }
 
-void supprimerModule(vector<Module>& modules, const Module& module_to_delete) {
-    int index = chercherModule(modules, module_to_delete);
+void supprimerModule(vector<Module>& modules, int id) {
+    int index = chercherModule(modules, id);
     if (index == -1) {
         cout << "Erreur: module non trouve" << endl;
         return;
@@ -171,13 +185,14 @@ void afficherToutModules(vector<Module>& modules){
     }
 }
 
-void retirerEtudiant(vector<Module>& modules, const Module& module, const Etudiant& etudiant) {
-    int id = chercherModule(modules, module);
-    if (id == -1) {
+void retirerEtudiant(vector<Module>& modules, int module_id, int etudiant_id) {
+    int index = chercherModule(modules, module_id);
+    if (index == -1) {
         cout << "Erreur: module non trouve." << endl;
         return;
     }
-    modules[id].supprimerEtudiant(etudiant);
+    Etudiant etud_temp(etudiant_id, "", "", "", 0);
+    modules[index].supprimerEtudiant(etud_temp);
 }
 
 void afficherModulesPlus10Ans(vector<Module>& modules) {

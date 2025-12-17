@@ -56,9 +56,9 @@ int main() {
     Date date2(15, 1, 2014, 10);  // Module ancien (plus de 10 ans)
     Date date3(10, 3, 2023, 14);
     
-    Module module1(1, "Mathematiques Avancees", prof1, date1, 3, etudiants1);
-    Module module2(2, "Physique Quantique", prof2, date2, 3, etudiants2);
-    Module module3(3, "Programmation C++", prof3, date3, 3, etudiants3);
+    Module module1(1, "Mathematiques Avancees", prof1, date1, 10, etudiants1);
+    Module module2(2, "Physique Quantique", prof2, date2, 20, etudiants2);
+    Module module3(3, "Programmation C++", prof3, date3, 18, etudiants3);
     
     // les modules initiaux
     modules.push_back(module1);
@@ -78,37 +78,8 @@ int main() {
         switch(choix) {
             case 1: { // Ajouter un module
                 cout << "\n--- AJOUTER UN MODULE ---" << endl;
-                int id;
-                string nom;
-                
-                cout << "ID du module: ";
-                cin >> id;
-                cin.ignore();
-                cout << "Nom du module: ";
-                getline(cin, nom);
-                
-                cout << "Informations du professeur:" << endl;
-                Professeur prof;
-                prof.saisir();
-                
-                cout << "Date de lancement:" << endl;
-                Date date;
-                date.saisir();
-                
-                int nb_etudiants;
-                cout << "Nombre d'etudiants: ";
-                cin >> nb_etudiants;
-                cin.ignore();
-                
-                vector<Etudiant> etudiants;
-                for(int i = 0; i < nb_etudiants; i++) {
-                    cout << "\nEtudiant " << (i+1) << ":" << endl;
-                    Etudiant etud;
-                    etud.saisir();
-                    etudiants.push_back(etud);
-                }
-                
-                Module nouveau_module(id, nom, prof, date, nb_etudiants, etudiants);
+                Module nouveau_module;
+                nouveau_module.saisir();
                 ajouterModule(modules, nouveau_module);
                 break;
             }
@@ -120,21 +91,7 @@ int main() {
                 cin >> id;
                 cin.ignore();
                 
-                Module module_temp;
-                bool trouve = false;
-                for(int i = 0; i < modules.size(); i++) {
-                    if(modules[i].getId() == id) {
-                        module_temp = modules[i];
-                        trouve = true;
-                        break;
-                    }
-                }
-                
-                if(trouve) {
-                    modifierModule(modules, module_temp);
-                } else {
-                    cout << "Module non trouve." << endl;
-                }
+                modifierModule(modules, id);
                 break;
             }
             
@@ -145,21 +102,7 @@ int main() {
                 cin >> id;
                 cin.ignore();
                 
-                Module module_temp;
-                bool trouve = false;
-                for(int i = 0; i < modules.size(); i++) {
-                    if(modules[i].getId() == id) {
-                        module_temp = modules[i];
-                        trouve = true;
-                        break;
-                    }
-                }
-                
-                if(trouve) {
-                    supprimerModule(modules, module_temp);
-                } else {
-                    cout << "Module non trouve." << endl;
-                }
+                supprimerModule(modules, id);
                 break;
             }
             
@@ -170,19 +113,8 @@ int main() {
                 cin >> id;
                 cin.ignore();
                 
-                Module module_temp;
-                bool trouve = false;
-                for(int i = 0; i < modules.size(); i++) {
-                    if(modules[i].getId() == id) {
-                        module_temp = modules[i];
-                        trouve = true;
-                        break;
-                    }
-                }
-                
-                int index = chercherModule(modules, module_temp);
+                int index = chercherModule(modules, id);
                 if(index != -1) {
-                    cout << "\nModule trouve a l'index " << index << ":" << endl;
                     modules[index].afficher();
                 } else {
                     cout << "Module non trouve." << endl;
@@ -213,14 +145,7 @@ int main() {
                 cin >> id_module;
                 cin.ignore();
                 
-                int index = -1;
-                for(int i = 0; i < modules.size(); i++) {
-                    if(modules[i].getId() == id_module) {
-                        index = i;
-                        break;
-                    }
-                }
-                
+                int index = chercherModule(modules, id_module);
                 if(index != -1) {
                     cout << "Informations de l'etudiant:" << endl;
                     Etudiant etud;
@@ -238,27 +163,11 @@ int main() {
                 cout << "ID du module: ";
                 cin >> id_module;
                 cin.ignore();
+                cout << "ID de l'etudiant a retirer: ";
+                cin >> id_etudiant;
+                cin.ignore();
                 
-                Module module_temp;
-                bool trouve = false;
-                for(int i = 0; i < modules.size(); i++) {
-                    if(modules[i].getId() == id_module) {
-                        module_temp = modules[i];
-                        trouve = true;
-                        break;
-                    }
-                }
-                
-                if(trouve) {
-                    cout << "ID de l'etudiant a retirer: ";
-                    cin >> id_etudiant;
-                    cin.ignore();
-                    
-                    Etudiant etud_temp(id_etudiant, "", "", "", 0);
-                    retirerEtudiant(modules, module_temp, etud_temp);
-                } else {
-                    cout << "Module non trouve." << endl;
-                }
+                retirerEtudiant(modules, id_module, id_etudiant);
                 break;
             }
             
@@ -269,14 +178,7 @@ int main() {
                 cin >> id_module;
                 cin.ignore();
                 
-                int index = -1;
-                for(int i = 0; i < modules.size(); i++) {
-                    if(modules[i].getId() == id_module) {
-                        index = i;
-                        break;
-                    }
-                }
-                
+                int index = chercherModule(modules, id_module);
                 if(index != -1) {
                     modules[index].afficherEtudiantPlus20Ans();
                 } else {

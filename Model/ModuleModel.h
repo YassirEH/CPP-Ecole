@@ -38,11 +38,11 @@ public:
     void afficher() const;
     void modifierProfesseur(Professeur& nouveau_prof);
 };
-int chercherModule(const vector<Module>& modules, const Module& module_a_rechercher);
+int chercherModule(const vector<Module>& modules, int id);
 void ajouterModule(vector<Module>& modules, const Module& new_module);
-void modifierModule(vector<Module>& modules, const Module& updated_module);
-void supprimerModule(vector<Module>& modules, const Module& module_to_delete);
+void modifierModule(vector<Module>& modules, int id);
+void supprimerModule(vector<Module>& modules, int id);
 void afficherToutModules(vector<Module>& modules);
-void retirerEtudiant(vector<Module>& modules, const Module& module, const Etudiant& etudiant);
+void retirerEtudiant(vector<Module>& modules, int module_id, int etudiant_id);
 void afficherModulesPlus10Ans(vector<Module>& modules);
 #endif
