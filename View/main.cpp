@@ -19,6 +19,12 @@ void afficherMenu() {
     cout << "7. Ajouter un etudiant a un module" << endl;
     cout << "8. Retirer un etudiant d'un module" << endl;
     cout << "9. Afficher etudiants de plus de 20 ans d'un module" << endl;
+    cout << "10. Ajouter un etudiant" << endl;
+    cout << "11. Afficher un etudiant" << endl;
+    cout << "12. Ajouter un professeur" << endl;
+    cout << "13. Afficher un professeur" << endl;
+    cout << "14. Creer une date" << endl;
+    cout << "15. Afficher une date" << endl;
     cout << "0. Quitter" << endl;
     cout << "====================================" << endl;
     cout << "Votre choix: ";
@@ -26,9 +32,12 @@ void afficherMenu() {
 
 int main() {
     vector<Module> modules;
+    vector<Etudiant> etudiants;
+    vector<Professeur> professeurs;
+    vector<Date> dates;
     int choix;
     
-    // Créer quelques données de test
+    // quelques données de test
     Etudiant e1(1, "Amina", "Alami", "123 Bd Mohammed V, Casablanca", 19);
     Etudiant e2(2, "Omar", "Bennani", "456 Av Hassan II, Rabat", 21);
     Etudiant e3(3, "Karim", "Idrissi", "789 Rue Fes, Marrakech", 22);
@@ -38,7 +47,7 @@ int main() {
     Professeur prof2(102, "Berrada", "Fatima", " Fes", "Physique", 2015);
     Professeur prof3(103, "Amrani", "Youssef", "Casablanca", "Informatique", 2010);
     
-    // Créer quelques modules de test
+    // quelques modules de test
     vector<Etudiant> etudiants1 = {e1, e2};
     vector<Etudiant> etudiants2 = {e3, e4};
     vector<Etudiant> etudiants3 = {e1, e3};
@@ -51,7 +60,7 @@ int main() {
     Module module2(2, "Physique Quantique", prof2, date2, 3, etudiants2);
     Module module3(3, "Programmation C++", prof3, date3, 3, etudiants3);
     
-    // Ajouter les modules initiaux
+    // les modules initiaux
     modules.push_back(module1);
     modules.push_back(module2);
     modules.push_back(module3);
@@ -181,7 +190,7 @@ int main() {
                 break;
             }
             
-            case 5: { // Afficher tous les modules
+            case 5: { // tous les modules
                 cout << "\n--- TOUS LES MODULES ---" << endl;
                 if(modules.empty()) {
                     cout << "Aucun module disponible." << endl;
@@ -191,7 +200,7 @@ int main() {
                 break;
             }
             
-            case 6: { // Afficher modules de plus de 10 ans
+            case 6: { // modules de plus de 10 ans
                 cout << "\n";
                 afficherModulesPlus10Ans(modules);
                 break;
@@ -223,7 +232,7 @@ int main() {
                 break;
             }
             
-            case 8: { // Retirer un etudiant d'un module
+            case 8: { // retirer un etudiant d'un module
                 cout << "\n--- RETIRER UN ETUDIANT D'UN MODULE ---" << endl;
                 int id_module, id_etudiant;
                 cout << "ID du module: ";
@@ -253,7 +262,7 @@ int main() {
                 break;
             }
             
-            case 9: { // Afficher etudiants de plus de 20 ans
+            case 9: { // etudiants de plus de 20 ans
                 cout << "\n--- ETUDIANTS DE PLUS DE 20 ANS ---" << endl;
                 int id_module;
                 cout << "ID du module: ";
@@ -272,6 +281,97 @@ int main() {
                     modules[index].afficherEtudiantPlus20Ans();
                 } else {
                     cout << "Module non trouve." << endl;
+                }
+                break;
+            }
+            
+            case 10: { // Ajouter un etudiant
+                cout << "\n--- AJOUTER UN ETUDIANT ---" << endl;
+                Etudiant etud;
+                etud.saisir();
+                etudiants.push_back(etud);
+                cout << "Etudiant ajoute avec succes!" << endl;
+                break;
+            }
+            
+            case 11: { // Afficher un etudiant
+                cout << "\n--- AFFICHER UN ETUDIANT ---" << endl;
+                if(etudiants.empty()) {
+                    cout << "Aucun etudiant disponible." << endl;
+                } else {
+                    int id;
+                    cout << "ID de l'etudiant: ";
+                    cin >> id;
+                    cin.ignore();
+                    
+                    bool trouve = false;
+                    for(const auto& e : etudiants) {
+                        if(e.getId() == id) {
+                            e.afficher();
+                            trouve = true;
+                            break;
+                        }
+                    }
+                    if(!trouve) {
+                        cout << "Etudiant non trouve." << endl;
+                    }
+                }
+                break;
+            }
+            
+            case 12: { // Ajouter un professeur
+                cout << "\n--- AJOUTER UN PROFESSEUR ---" << endl;
+                Professeur prof;
+                prof.saisir();
+                professeurs.push_back(prof);
+                cout << "Professeur ajoute avec succes!" << endl;
+                break;
+            }
+            
+            case 13: { // Afficher un professeur
+                cout << "\n--- AFFICHER UN PROFESSEUR ---" << endl;
+                if(professeurs.empty()) {
+                    cout << "Aucun professeur disponible." << endl;
+                } else {
+                    int id;
+                    cout << "ID du professeur: ";
+                    cin >> id;
+                    cin.ignore();
+                    
+                    bool trouve = false;
+                    for(const auto& p : professeurs) {
+                        if(p.getId() == id) {
+                            p.afficher();
+                            trouve = true;
+                            break;
+                        }
+                    }
+                    if(!trouve) {
+                        cout << "Professeur non trouve." << endl;
+                    }
+                }
+                break;
+            }
+            
+            case 14: { // Creer une date
+                cout << "\n--- CREER UNE DATE ---" << endl;
+                Date date;
+                date.saisir();
+                dates.push_back(date);
+                cout << "Date creee avec succes!" << endl;
+                break;
+            }
+            
+            case 15: { // Afficher une date
+                cout << "\n--- AFFICHER DATE ---" << endl;
+                if(dates.empty()) {
+                    cout << "Aucune date disponible." << endl;
+                } else {
+                    cout << "Dates disponibles:" << endl;
+                    for(int i = 0; i < dates.size(); i++) {
+                        cout << "Date " << (i+1) << ": ";
+                        dates[i].afficher();
+                    }
                 }
                 break;
             }
